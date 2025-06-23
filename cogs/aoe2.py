@@ -16,7 +16,6 @@ class AoE2(commands.Cog):
     # --- Helper Methods ---
     def _load_score(self):
         """Loads the score from the JSON file into memory."""
-        os.makedirs(os.path.dirname(SCORE_FILE), exist_ok=True)
         try:
             if os.path.exists(SCORE_FILE):
                 with open(SCORE_FILE, 'r') as f:
