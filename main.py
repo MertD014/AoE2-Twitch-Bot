@@ -6,7 +6,7 @@ load_dotenv()
 
 # --- Configuration ---
 TWITCH_TOKEN = os.environ.get("ACCESS_TOKEN")
-CHANNEL = ["polishedpoo_"]
+CHANNEL = os.environ.get("CHANNEL_NAME")
 PREFIX = "!"
 
 # --- List of cogs to load ---
@@ -21,7 +21,7 @@ class Bot(commands.Bot):
         super().__init__(
             token=TWITCH_TOKEN,
             prefix=PREFIX,
-            initial_channels=CHANNEL
+            initial_channels=[CHANNEL]
         )
 
     def setup_cogs(self):
