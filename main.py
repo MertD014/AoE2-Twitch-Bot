@@ -12,7 +12,8 @@ PREFIX = "!"
 # --- List of cogs to load ---
 INITIAL_COGS = [
     "cogs.general",
-    "cogs.aoe2"
+    "cogs.aoe2",
+    "cogs.minecraft"
 ]
 
 # --- Main Bot Class ---
@@ -47,7 +48,7 @@ class Bot(commands.Bot):
         """Runs every time a message is sent in chat."""
         if message.echo:
             return
-        await self.handle_commands(message)
+        await self.handle_commands(message)   
 
 # --- Main ---
 if __name__ == "__main__":
