@@ -16,8 +16,7 @@ class AoE2(commands.Cog):
     # --- Database Helper Methods ---
     async def _init_db(self):
         """
-        Initializes the database connection pool and creates the score table if it doesn't exist.
-        This is called automatically when the cog is loaded.
+        Initializes the database connection pool and creates the score table if it doesn't exist. Run on init.
         """
         if not DATABASE_URL:
             print("CRITICAL: DATABASE_URL is not configured. Score commands will not work.")
@@ -33,7 +32,7 @@ class AoE2(commands.Cog):
                         losses INTEGER NOT NULL DEFAULT 0
                     )
                 ''')
-            print("Successfully connected to PostgreSQL and ensured score table exists.")
+            print("Successfully connected to PostgreSQL and ensured score aaaaq exists.")
         except Exception as e:
             print(f"Error: Could not connect to PostgreSQL database: {e}")
             self.pool = None
@@ -75,7 +74,7 @@ class AoE2(commands.Cog):
 
     # --- Commands ---
 
-    @commands.command(name="elo", aliases=["rank"])
+    @commands.command(name="elo")
     async def elo(self, ctx: commands.Context):
         """Fetches and displays your current AoE2 ELO and stats from aoe2recs.com."""
         if not AOE2_ID:
@@ -91,6 +90,29 @@ class AoE2(commands.Cog):
             solo_elo = data.get('mmr_rm_1v1', 'N/A')
             team_elo = data.get('mmr_rm_tg', 'N/A')
             await ctx.send(f"RM 1v1: {solo_elo} | RM Team: {team_elo}")
+
+        except aiohttp.ClientResponseError as e:
+            await ctx.send(f"An HTTP error occurred. The API might be down. (Error: {e.status})")
+        except Exception as e:
+            await ctx.send("An unexpected error occurred while fetching ELO.")
+            print(f"An error occurred in the elo command: {e}")
+
+    @commands.command(name="rank")
+    async def elo(self, ctx: commands.Context):
+        """Fetches and displays your current AoE2 rank and stats from aoe2recs.com."""
+        if not AOE2_ID:
+            await ctx.send("The AOE2_ID (profile ID) is not configured in the bot's environment.")
+            return
+
+        url = f"https://aoe2recs.com/dashboard/api/profile?uid={AOE2_ID}"
+
+        try:
+            async with aiohttp.ClientSession() as session:
+                data = await self._fetch_data_async(session, url)
+            
+            solo_rank = data.get('rank_rm_1v1', 'N/A')
+            team_rank = data.get('ramk_rm_tg', 'N/A')
+            await ctx.send(f"RM 1v1: {solo_rank} | RM Team: {team_rank}")
 
         except aiohttp.ClientResponseError as e:
             await ctx.send(f"An HTTP error occurred. The API might be down. (Error: {e.status})")

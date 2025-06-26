@@ -1,7 +1,7 @@
 import os
 from twitchio.ext import commands
 
-DISCORD_LINK= os.environ.get("DISCORD_LINK");
+DISCORD_LINK= os.environ.get("DISCORD_LINK")
 
 class General(commands.Cog):
     def __init__(self, bot: commands.Bot):
