@@ -98,7 +98,7 @@ class AoE2(commands.Cog):
             print(f"An error occurred in the elo command: {e}")
 
     @commands.command(name="rank")
-    async def elo(self, ctx: commands.Context):
+    async def rank(self, ctx: commands.Context):
         """Fetches and displays your current AoE2 rank and stats from aoe2recs.com."""
         if not AOE2_ID:
             await ctx.send("The AOE2_ID (profile ID) is not configured in the bot's environment.")
@@ -111,7 +111,7 @@ class AoE2(commands.Cog):
                 data = await self._fetch_data_async(session, url)
             
             solo_rank = data.get('rank_rm_1v1', 'N/A')
-            team_rank = data.get('ramk_rm_tg', 'N/A')
+            team_rank = data.get('rank_rm_tg', 'N/A')
             await ctx.send(f"RM 1v1: {solo_rank} | RM Team: {team_rank}")
 
         except aiohttp.ClientResponseError as e:
