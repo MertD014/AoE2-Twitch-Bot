@@ -13,7 +13,8 @@ PREFIX = "!"
 INITIAL_COGS = [
     "cogs.general",
     "cogs.aoe2",
-    "cogs.minecraft"
+    "cogs.minecraft",
+    "cogs.fun"
 ]
 
 # --- Main Bot Class ---
