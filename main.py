@@ -14,7 +14,8 @@ INITIAL_COGS = [
     "cogs.general",
     "cogs.aoe2",
     "cogs.minecraft",
-    "cogs.fun"
+    "cogs.fun",
+    "cogs.info"
 ]
 
 # --- Main Bot Class ---
