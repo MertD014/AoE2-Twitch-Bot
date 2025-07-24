@@ -161,6 +161,53 @@ class AoE2(commands.Cog):
         else:
             await ctx.send(f"Unknown action '{action}'. Please use win, loss, or reset.")
 
+    @commands.command(name="civ")
+    async def civ(self, ctx: commands.Context, *, civ_name: str):
+        """Looks up a civilization and displays its unique units and technologies."""
+        civ_name = civ_name.title()
+        if civ_name in self.bot.data["techtrees"]:
+            civ_data = self.bot.data["techtrees"][civ_name]
+            response = f"{civ_name} Unique Units: "
+            response += ", ".join([self.bot.data["units"][str(civ_data["unique"]["castleAgeUniqueUnit"])]["LanguageNameId"], self.bot.data["units"][str(civ_data["unique"]["imperialAgeUniqueUnit"])]["LanguageNameId"]])
+            response += f" | Unique Techs: "
+            response += ", ".join([self.bot.data["techs"][str(civ_data["unique"]["castleAgeUniqueTech"])]["LanguageNameId"], self.bot.data["techs"][str(civ_data["unique"]["imperialAgeUniqueTech"])]["LanguageNameId"]])
+            await ctx.send(response)
+        else:
+            await ctx.send("Civilization not found.")
+
+    @commands.command(name="unit")
+    async def unit(self, ctx: commands.Context, *, unit_name: str):
+        """Looks up a unit and displays its stats."""
+        unit_name = unit_name.title()
+        unit_data = None
+        for key, value in self.bot.data["units"].items():
+            if value["LanguageNameId"].lower() == unit_name.lower():
+                unit_data = value
+                break
+
+        if unit_data:
+            response = f"{unit_data['LanguageNameId']} | HP: {unit_data['HP']} | Attack: {unit_data['Attack']} | Melee Armor: {unit_data['MeleeArmor']} | Pierce Armor: {unit_data['PierceArmor']}"
+            await ctx.send(response)
+        else:
+            await ctx.send("Unit not found.")
+
+    @commands.command(name="tech")
+    async def tech(self, ctx: commands.Context, *, tech_name: str):
+        """Looks up a technology and displays its stats."""
+        tech_name = tech_name.title()
+        tech_data = None
+        for key, value in self.bot.data["techs"].items():
+            if value["LanguageNameId"].lower() == tech_name.lower():
+                tech_data = value
+                break
+
+        if tech_data:
+            cost = ", ".join([f"{value} {key}" for key, value in tech_data['Cost'].items()])
+            response = f"{tech_data['LanguageNameId']} | Cost: {cost} | Research Time: {tech_data['ResearchTime']}s"
+            await ctx.send(response)
+        else:
+            await ctx.send("Technology not found.")
+
 def prepare(bot: commands.Bot):
     """Adds the AoE2 cog to the bot."""
     bot.add_cog(AoE2(bot))

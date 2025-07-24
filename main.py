@@ -1,4 +1,5 @@
 import os
+import json
 from twitchio.ext import commands
 from dotenv import load_dotenv
 
@@ -26,6 +27,19 @@ class Bot(commands.Bot):
             prefix=PREFIX,
             initial_channels=[CHANNEL]
         )
+        self.data = self._load_data()
+
+    def _load_data(self):
+        """Loads data from the data.json file."""
+        try:
+            with open("data/data.json", "r") as f:
+                return json.load(f)
+        except FileNotFoundError:
+            print("Error: data.json not found.")
+            return {}
+        except json.JSONDecodeError:
+            print("Error: Could not decode data.json.")
+            return {}
 
     def setup_cogs(self):
         """Loads the initial cogs."""
