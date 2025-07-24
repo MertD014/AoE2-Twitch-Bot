@@ -11,9 +11,10 @@ class Info(commands.Cog):
     async def civ(self, ctx: commands.Context, *, civ_name: str):
         """Provides information about a specific civilization."""
         civ_name = civ_name.lower()
-        for civ_data in self.data["civs"]:
-            if civ_data["name"].lower() == civ_name:
-                await ctx.send(f"{civ_data['name']}: {civ_data['team_bonus']}")
+        for civ, civ_id in self.data["civ_names"].items():
+            if civ.lower() == civ_name:
+                civ_info = self.data["civ_helptexts"][civ_id]
+                await ctx.send(f"{civ}: {civ_info}")
                 return
         await ctx.send(f"Civilization '{civ_name}' not found.")
 
@@ -21,9 +22,10 @@ class Info(commands.Cog):
     async def unit(self, ctx: commands.Context, *, unit_name: str):
         """Provides information about a specific unit."""
         unit_name = unit_name.lower()
-        for unit_data in self.data["units"]:
-            if unit_data["name"].lower() == unit_name:
-                await ctx.send(f"{unit_data['name']}: {unit_data['description']}")
+        for unit, unit_id in self.data["unit_names"].items():
+            if unit.lower() == unit_name:
+                unit_info = self.data["unit_helptexts"][unit_id]
+                await ctx.send(f"{unit}: {unit_info}")
                 return
         await ctx.send(f"Unit '{unit_name}' not found.")
 
@@ -31,9 +33,10 @@ class Info(commands.Cog):
     async def tech(self, ctx: commands.Context, *, tech_name: str):
         """Provides information about a specific technology."""
         tech_name = tech_name.lower()
-        for tech_data in self.data["techs"]:
-            if tech_data["name"].lower() == tech_name:
-                await ctx.send(f"{tech_data['name']}: {tech_data['description']}")
+        for tech, tech_id in self.data["tech_names"].items():
+            if tech.lower() == tech_name:
+                tech_info = self.data["tech_helptexts"][tech_id]
+                await ctx.send(f"{tech}: {tech_info}")
                 return
         await ctx.send(f"Technology '{tech_name}' not found.")
 
