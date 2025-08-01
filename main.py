@@ -17,11 +17,13 @@ INITIAL_COGS = [
 ]
 
 class Bot(commands.Bot):
-    def __init__(self):
+    def __init__(self, client_id, client_secret, bot_id):
         super().__init__(
             token=TWITCH_TOKEN,
             prefix=PREFIX,
-            initial_channels=[CHANNEL]
+            initial_channels=[CHANNEL],
+            client_id=client_id,
+            client_secret=client_secret
         )
         self.data = self._load_data()
         for cog in INITIAL_COGS:
@@ -60,8 +62,14 @@ class Bot(commands.Bot):
         await self.handle_commands(message)   
 
 if __name__ == "__main__":
-    if not TWITCH_TOKEN or not TWITCH_TOKEN.startswith("oauth:"):
-        print("CRITICAL Error: ACCESS_TOKEN is missing or invalid!")
+    CLIENT_ID = os.environ.get("CLIENT_ID")
+    CLIENT_SECRET = os.environ.get("CLIENT_SECRET")
+    BOT_ID = os.environ.get("BOT_ID")
+
+    if not all([TWITCH_TOKEN, CLIENT_ID, CLIENT_SECRET, BOT_ID]):
+        print("CRITICAL Error: Missing one or more required environment variables.")
+    elif not TWITCH_TOKEN.startswith("oauth:"):
+        print("CRITICAL Error: ACCESS_TOKEN is invalid!")
     else:
-        bot = Bot()
+        bot = Bot(client_id=CLIENT_ID, client_secret=CLIENT_SECRET, bot_id=BOT_ID)
         bot.run()
