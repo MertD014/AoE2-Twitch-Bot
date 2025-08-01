@@ -10,16 +10,12 @@ TWITCH_TOKEN = os.environ.get("ACCESS_TOKEN")
 CHANNEL = os.environ.get("CHANNEL_NAME")
 PREFIX = "!"
 
-# --- List of cogs to load ---
 INITIAL_COGS = [
     "cogs.general",
     "cogs.aoe2",
-    "cogs.minecraft",
     "cogs.fun",
-    "cogs.info"
 ]
 
-# --- Main Bot Class ---
 class Bot(commands.Bot):
     def __init__(self):
         super().__init__(
@@ -28,6 +24,12 @@ class Bot(commands.Bot):
             initial_channels=[CHANNEL]
         )
         self.data = self._load_data()
+        for cog in INITIAL_COGS:
+            try:
+                self.load_module(cog)
+                print(f"Successfully loaded cog: {cog}")
+            except Exception as e:
+                print(f"Failed to load cog {cog}: {e}")
 
     def _load_data(self):
         """Loads data from the data.json file."""
@@ -40,15 +42,6 @@ class Bot(commands.Bot):
         except json.JSONDecodeError:
             print("Error: Could not decode data.json.")
             return {}
-
-    def setup_cogs(self):
-        """Loads the initial cogs."""
-        for cog in INITIAL_COGS:
-            try:
-                self.load_module(cog)
-                print(f"Successfully loaded cog: {cog}")
-            except Exception as e:
-                print(f"Failed to load cog {cog}: {e}")
 
     async def event_ready(self):
         """Called once when the bot goes online."""
@@ -66,11 +59,9 @@ class Bot(commands.Bot):
             return
         await self.handle_commands(message)   
 
-# --- Main ---
 if __name__ == "__main__":
     if not TWITCH_TOKEN or not TWITCH_TOKEN.startswith("oauth:"):
         print("CRITICAL Error: ACCESS_TOKEN is missing or invalid!")
     else:
         bot = Bot()
-        bot.setup_cogs()
         bot.run()

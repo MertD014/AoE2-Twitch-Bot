@@ -1,0 +1,154 @@
+{
+  "civilizations": {
+    "aztecs": {
+      "name": "Aztecs",
+      "focus": "Infantry and Monk Civilization",
+      "unique_units": ["jaguar_warrior"],
+      "unique_techs": ["atlatl", "garland_wars"],
+      "bonuses": [
+        "Villagers carry +3 extra resources.",
+        "Military units are created 11% faster.",
+        "Monks gain 5 HP for each researched Monastery technology.",
+        "Start with +50 gold."
+      ],
+      "team_bonus": "Relics generate +33% more gold.",
+      "tech_tree_notes": "Lacks cavalry, gunpowder units, and many high-tier armor upgrades."
+    },
+    "britons": {
+      "name": "Britons",
+      "focus": "Archer Civilization",
+      "unique_units": ["longbowman"],
+      "unique_techs": ["warwolf", "yeomen"],
+      "bonuses": [
+        "Town Centers cost -50% wood starting in the Castle Age.",
+        "Foot archers (except Skirmishers) have +1 range in Castle Age, +1 in Imperial Age.",
+        "Shepherds work 25% faster."
+      ],
+      "team_bonus": "Archery Ranges work 20% faster.",
+      "tech_tree_notes": "Lacks high-tier cavalry and gunpowder units."
+    }
+  },
+  "units": {
+    "unique_units": {
+      "jaguar_warrior": {
+        "name": "Jaguar Warrior",
+        "civilization": "Aztecs",
+        "age": "Castle",
+        "description": "Infantry unit with a very high attack bonus against other infantry.",
+        "cost": {
+          "food": 60,
+          "gold": 30
+        },
+        "stats": {
+          "hp": 75,
+          "attack": 12,
+          "armor": "2/1",
+          "bonus_damage": "+11 vs Infantry"
+        }
+      },
+      "longbowman": {
+        "name": "Longbowman",
+        "civilization": "Britons",
+        "age": "Castle",
+        "description": "Foot archer with an exceptionally long range.",
+        "cost": {
+          "wood": 35,
+          "gold": 40
+        },
+        "stats": {
+          "hp": 40,
+          "attack": 7,
+          "range": 7,
+          "armor": "0/1"
+        }
+      }
+    },
+    "standard_units": {
+      "militia": {
+        "name": "Militia",
+        "age": "Dark",
+        "description": "Basic infantry unit, available in the Dark Age. The foundation of the main infantry line.",
+        "cost": {
+          "food": 60,
+          "gold": 20
+        },
+        "trained_at": "barracks"
+      },
+      "archer": {
+        "name": "Archer",
+        "age": "Feudal",
+        "description": "Basic ranged unit. Effective in numbers against unarmored units but vulnerable to skirmishers and cavalry.",
+        "cost": {
+          "wood": 25,
+          "gold": 45
+        },
+        "trained_at": "archery_range"
+      }
+    }
+  },
+  "techs": {
+    "unique_techs": {
+      "garland_wars": {
+        "name": "Garland Wars",
+        "civilization": "Aztecs",
+        "age": "Imperial",
+        "cost": {
+          "food": 450,
+          "gold": 750
+        },
+        "effect": "Infantry get +5 attack."
+      },
+      "yeomen": {
+        "name": "Yeomen",
+        "civilization": "Britons",
+        "age": "Imperial",
+        "cost": {
+          "wood": 750,
+          "gold": 450
+        },
+        "effect": "Foot archers gain +1 range and towers gain +2 attack."
+      }
+    },
+    "standard_techs": {
+      "loom": {
+        "name": "Loom",
+        "age": "Dark",
+        "cost": {
+          "gold": 50
+        },
+        "effect": "Villagers gain +15 HP and +1/+2 armor.",
+        "researched_at": "town_center"
+      },
+      "fletching": {
+        "name": "Fletching",
+        "age": "Feudal",
+        "cost": {
+          "food": 100,
+          "gold": 50
+        },
+        "effect": "Archers, Galleys, Town Centers, Castles, and Towers gain +1 attack and +1 range.",
+        "researched_at": "blacksmith"
+      }
+    }
+  },
+  "buildings": {
+    "barracks": {
+      "name": "Barracks",
+      "age": "Dark",
+      "cost": {
+        "wood": 175
+      },
+      "hp": 1200,
+      "description": "Creates and upgrades infantry units like Militia, Spearmen, and Eagles."
+    },
+    "castle": {
+      "name": "Castle",
+      "age": "Castle",
+      "cost": {
+        "stone": 650
+      },
+      "hp": 4800,
+      "description": "A powerful defensive structure. Creates the civilization's Unique Unit and Trebuchets."
+    }
+  }
+}
