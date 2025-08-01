@@ -23,7 +23,8 @@ class Bot(commands.Bot):
             prefix=PREFIX,
             initial_channels=[CHANNEL],
             client_id=client_id,
-            client_secret=client_secret
+            client_secret=client_secret,
+            bot_id = bot_id
         )
         self.data = self._load_data()
         for cog in INITIAL_COGS:
