@@ -14,6 +14,7 @@ INITIAL_COGS = [
     "cogs.general",
     "cogs.aoe2",
     "cogs.fun",
+    "cogs.spotify",
 ]
 
 class Bot(commands.Bot):
