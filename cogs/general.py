@@ -11,6 +11,10 @@ class General(commands.Cog):
     async def ping(self, ctx: commands.Context):
         await ctx.send("Pong!")
 
+    @commands.command(name="akkal")
+    async def akkal(self, ctx: commands.Context):
+        await ctx.send("3v3 League hosted by Akkal https://www.twitch.tv/akkalno")
+
     @commands.command(name="help")
     async def help(self, ctx: commands.Context):
         """Shows a list of all available commands."""
